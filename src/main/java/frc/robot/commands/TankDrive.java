@@ -32,7 +32,7 @@ public class TankDrive extends CommandBase {
   public void execute() {
     double leftPowerRaw = joy.getRawAxis(1);
 
-    double rightPowerRaw = joy.getRawAxis(4);
+    double rightPowerRaw = joy.getRawAxis(5);
 
     dt.tankDrive(leftPowerRaw*-0.7, rightPowerRaw*-0.7);
   }
