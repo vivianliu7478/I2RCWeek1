@@ -13,20 +13,23 @@ public class TankDrive extends CommandBase {
   public Joystick joy;
 
   /** Creates a new TankDrive. */
+// The constructor 
   public TankDrive(DriveTrain dt, Joystick j) {
     this.dt = dt;
     this.joy = j;
+  // Creating a DriveTrain and a Joystick
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(dt);
   }
-
+// Initializes both the talons to be zero
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     dt.tankDrive(0.0, 0.0);
   }
-
+// Gets raw data from left JoyStick and right JoyStick
+// Setting speed to the motors relative to the raw data from the JoySticks
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -36,13 +39,13 @@ public class TankDrive extends CommandBase {
 
     dt.tankDrive(leftPowerRaw*-0.7, rightPowerRaw*-0.7);
   }
-
+// Sets the speed to zero
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     dt.tankDrive(0.0, 0.0);
   }
-
+// Returning is finished when the command ends
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

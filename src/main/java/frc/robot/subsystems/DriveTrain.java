@@ -5,7 +5,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
+// It imports things
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -19,12 +19,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.kauailabs.navx.frc.AHRS;
-
+// Creates the DriveTrain class
 public class DriveTrain extends SubsystemBase 
 {
   private final WPI_TalonSRX leftDriveTalon;
   private final WPI_TalonSRX rightDriveTalon;
-
+// Creates the Talon variables
   private AHRS navx = new AHRS(SPI.Port.kMXP);
 
   private ShuffleboardTab DTTab = Shuffleboard.getTab("DriveTrain");
@@ -36,7 +36,7 @@ public class DriveTrain extends SubsystemBase
   {
     leftDriveTalon = new WPI_TalonSRX(Constants.DriveTrainPorts.LeftDriveTalonPort);
     rightDriveTalon = new WPI_TalonSRX(Constants.DriveTrainPorts.RightDriveTalonPort);
-  
+  // Zeros the Talons
     leftDriveTalon.setNeutralMode(NeutralMode.Coast);
     rightDriveTalon.setNeutralMode(NeutralMode.Coast);
 
@@ -52,17 +52,17 @@ public class DriveTrain extends SubsystemBase
     rightDriveTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
   }
-
+// This part sets the speed of the motors
   public void tankDrive(double leftSpeed, double rightSpeed) {
     rightDriveTalon.set(rightSpeed);
     leftDriveTalon.set(leftSpeed);
   }
-
+// Resets the Encoders
   public void resetEncoders() {
     leftDriveTalon.setSelectedSensorPosition(0,0,10);
     rightDriveTalon.setSelectedSensorPosition(0,0,10);
   }
-
+// Getting the average of the Encoder Positions
   public double getTicks() {
     return (leftDriveTalon.getSelectedSensorPosition(0) + rightDriveTalon.getSelectedSensorPosition(0)) / 2.0;
   }
@@ -70,7 +70,7 @@ public class DriveTrain extends SubsystemBase
   public double getAngle(){
     return navx.getAngle(); 
   }
- 
+ // Resets the Navx
   public void resetNavx(){
     navx.reset();
   }
