@@ -22,21 +22,33 @@ public class AutoDrive extends CommandBase {
   @Override
   public void initialize() {
     dt.resetEncoders();
-    dt.TankDrive(0.0);
+    dt.tankDrive(0.0,0.0);
   }
 
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    dt.tankDrive(0.3,0.3);
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    dt.resetEncoders();
+    dt.tankDrive(0.0, 0.0);
+    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (dt.ticksToMeter() >= setpoint) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

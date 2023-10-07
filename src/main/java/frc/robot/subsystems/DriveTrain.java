@@ -66,6 +66,10 @@ public class DriveTrain extends SubsystemBase
   public double getTicks() {
     return (leftDriveTalon.getSelectedSensorPosition(0) + rightDriveTalon.getSelectedSensorPosition(0)) / 2.0;
   }
+
+  public double ticksToMeter() {
+    return(0.1524 * Math.PI / 4096);
+  }
  
   public double getAngle(){
     return navx.getAngle(); 
@@ -93,4 +97,5 @@ public class DriveTrain extends SubsystemBase
     RightVoltage.setDouble(rightDriveTalon.getMotorOutputPercent());
 
   }
+
 }
