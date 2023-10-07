@@ -81,6 +81,14 @@ public class DriveTrain extends SubsystemBase
     SmartDashboard.putNumber("Right Voltage", rightDriveTalon.getMotorOutputPercent());
     SmartDashboard.putNumber("Angle", navx.getAngle());
 
+  // We made this in class during session
+    SmartDashboard.putNumber("Left Talon Ticks", leftDriveTalon.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Right Talon Ticks", rightDriveTalon.getSelectedSensorPosition());
+   
+  // SmartDashboard is a class, .putNumber is the method that is already built-in and given which is the action that the class will do
+  // Key is something that cannot be deleted, Right Talon Ticks and Left Talon Ticks are strings and the leftDriveTalon/rightDriveTalon is the object
+  // rightDriveTalon/leftDriveTalon are created objects that are the instance of a class so it has information on the Talon Ticks which getSelectedSensorPosition gets it
+  //.getSelectedSensorPosition is an example of a getting method which is obtaining information from the object and the string is just the name of it
     LeftVoltage.setDouble(leftDriveTalon.getMotorOutputPercent());
     RightVoltage.setDouble(rightDriveTalon.getMotorOutputPercent());
 
