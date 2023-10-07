@@ -27,6 +27,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void initialize() {
     dt.tankDrive(0.0, 0.0);
+    dt.resetEncoders();
   }
 // Gets raw data from left JoyStick and right JoyStick
 // Setting speed to the motors relative to the raw data from the JoySticks
@@ -44,6 +45,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     dt.tankDrive(0.0, 0.0);
+    dt.resetEncoders();
   }
 // Returning is finished when the command ends
   // Returns true when the command should end.

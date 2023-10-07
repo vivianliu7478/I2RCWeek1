@@ -40,8 +40,8 @@ public class DriveTrain extends SubsystemBase
     leftDriveTalon.setNeutralMode(NeutralMode.Coast);
     rightDriveTalon.setNeutralMode(NeutralMode.Coast);
 
-    leftDriveTalon.setInverted(true);
-    rightDriveTalon.setInverted(false);
+    leftDriveTalon.setInverted(false);
+    rightDriveTalon.setInverted(true);
 
     leftDriveTalon.setSensorPhase(true);
     rightDriveTalon.setSensorPhase(true);
@@ -68,7 +68,8 @@ public class DriveTrain extends SubsystemBase
   }
 
   public double ticksToMeter() {
-    return(0.1524 * Math.PI / 4096);
+    return(0.1524 * Math.PI / 4096) * getTicks();
+
   }
  
   public double getAngle(){
@@ -88,6 +89,7 @@ public class DriveTrain extends SubsystemBase
   // We made this in class during session
     SmartDashboard.putNumber("Left Talon Ticks", leftDriveTalon.getSelectedSensorPosition());
     SmartDashboard.putNumber("Right Talon Ticks", rightDriveTalon.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Ticks to Meters",ticksToMeter());
    
   // SmartDashboard is a class, .putNumber is the method that is already built-in and given which is the action that the class will do
   // Key is something that cannot be deleted, Right Talon Ticks and Left Talon Ticks are strings and the leftDriveTalon/rightDriveTalon is the object
