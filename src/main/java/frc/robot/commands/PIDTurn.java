@@ -6,12 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.USBOrder;
 import frc.robot.subsystems.DriveTrain;
 
 public class PIDTurn extends CommandBase {
   DriveTrain dt;
   double setpointAngle;
-  PIDController pid = new PIDController (0.3/90, 0, 0);
+  PIDController pid = new PIDController(USBOrder.kP, 0, 0);
   int motorSign;
   
   
@@ -21,7 +22,7 @@ public class PIDTurn extends CommandBase {
     this.dt = dt;
     this.setpointAngle = setpointAngle;
     addRequirements(dt);
-    if (setpointAngle >= 1){ //It will counter-clockwise turn if the motor is at 1
+    if (setpointAngle >= 0){ //It will counter-clockwise turn if the motor is at 1
       motorSign = 1;
     }
     else{
@@ -33,21 +34,31 @@ public class PIDTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
     dt.resetNavx();
+    dt.tankDrive(0, 0);
   }
   
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double output = pid.calculate(dt.getAngle(), setpointAngle);
+    dt.tankDrive(motorSign * output, motorSign * output);
+
+  }
 
   // Called once the command ends or is interrupted.
+  // the robot doesn't go forward because it doesnt reach the setpoint so we have to make the set tolerance bigger
+  // the set tolerance is the way it is able to control the amount of power that the robot can have then.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    pid.setTolerance(5.0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return pid.atSetpoint();
   }
 }
